@@ -3,7 +3,7 @@ import * as Joi from 'joi';
 import { ConfigModule } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { I18nModule, I18nJsonParser } from 'nestjs-i18n';
-import path from 'path';
+import * as path from 'path';
 
 @Module({
   imports: [
@@ -42,5 +42,4 @@ import path from 'path';
   controllers: [],
   providers: [],
 })
-export class AppModule {
-}
+export class AppModule {}
