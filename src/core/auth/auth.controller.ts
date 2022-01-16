@@ -26,10 +26,11 @@ export class AuthController {
   }
 
   @ApiUnauthorizedResponse({ description: 'wrong credentials' })
+  @ApiBadRequestResponse({ description: 'validation error' })
   @ApiAcceptedResponse({ description: 'successful sign in' })
   @HttpCode(202)
   @Post('sign-in')
-  public async login(@Body() signInDto: SignInDto): Promise<any> {
+  public async signIn(@Body() signInDto: SignInDto): Promise<IUser> {
     return this.authService.signIn(signInDto);
   }
 }
