@@ -3,6 +3,8 @@ import * as Joi from 'joi';
 import { ConfigModule } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { I18nModule, I18nJsonParser } from 'nestjs-i18n';
+import { AuthModule } from './core/auth/auth.module';
+import { UsersModule } from './modules/users/users.module';
 import * as path from 'path';
 
 @Module({
@@ -38,6 +40,8 @@ import * as path from 'path';
         path: path.join(__dirname, '/i18n/'),
       },
     }),
+    AuthModule,
+    UsersModule,
   ],
   controllers: [],
   providers: [],
