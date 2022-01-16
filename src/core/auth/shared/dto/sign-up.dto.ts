@@ -1,5 +1,12 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { IsEmail, Matches, MaxLength, MinLength } from 'class-validator';
+import {
+  IsBoolean,
+  IsEmail,
+  IsString,
+  Matches,
+  MaxLength,
+  MinLength,
+} from 'class-validator';
 
 export class SignUpDto {
   @ApiProperty()
@@ -22,10 +29,14 @@ export class SignUpDto {
   public password: string;
 
   @ApiProperty()
-  @MaxLength(16)
+  @IsString()
   public firstName: string;
 
   @ApiProperty()
-  @MaxLength(16)
+  @IsString()
   public lastName: string;
+
+  @ApiProperty()
+  @IsBoolean()
+  public vegetarian: boolean;
 }
