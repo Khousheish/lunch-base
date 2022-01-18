@@ -1,4 +1,10 @@
-import { BaseEntity, Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import {
+  BaseEntity,
+  Column,
+  CreateDateColumn,
+  Entity,
+  PrimaryGeneratedColumn,
+} from 'typeorm';
 import * as bcrypt from 'bcrypt';
 
 @Entity('Users')
@@ -27,8 +33,8 @@ export class User extends BaseEntity {
   @Column()
   public salt: string;
 
-  @Column()
-  public createdAt: Date;
+  @CreateDateColumn()
+  createdAt: Date;
 
   @Column({ default: true })
   public active: boolean;

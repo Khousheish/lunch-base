@@ -11,7 +11,6 @@ export class UsersRepository extends Repository<User> {
       ...signUpDto,
       password: await UsersRepository.hashPassword(signUpDto.password, salt),
       salt,
-      createdAt: new Date(),
       active: true,
     });
     await user.save();
