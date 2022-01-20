@@ -25,7 +25,12 @@ export class OrdersService {
     }
     const orders: Order[] = await this.ordersRepository.createOrder(
       createOrderDto,
+      user.id,
     );
     return orders;
+  }
+
+  public async getAllOrders(user: User): Promise<Order[]> {
+    return this.ordersRepository.getAllOrders(user);
   }
 }

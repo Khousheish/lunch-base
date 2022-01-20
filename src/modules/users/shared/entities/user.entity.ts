@@ -3,9 +3,11 @@ import {
   Column,
   CreateDateColumn,
   Entity,
+  OneToMany,
   PrimaryGeneratedColumn,
 } from 'typeorm';
 import * as bcrypt from 'bcrypt';
+import { Order } from 'src/modules/orders/shared/entities/order.entity';
 
 @Entity('Users')
 export class User extends BaseEntity {
@@ -27,6 +29,9 @@ export class User extends BaseEntity {
   @Column()
   public vegetarian: boolean;
 
+  @Column({ default: false })
+  public admin: boolean;
+
   @Column()
   public password: string;
 
@@ -37,7 +42,10 @@ export class User extends BaseEntity {
   createdAt: Date;
 
   @Column({ default: true })
-  public active: boolean;
+  active: boolean;
+
+  @OneToMany((type) => Order, (order) => order.user, { eager: false })
+  orders: Order[];
 
   public async validatePassword(password: string): Promise<boolean> {
     const hash: string = await bcrypt.hash(password, this.salt);

@@ -1,10 +1,20 @@
-import { Body, Controller, Post, Req, UseGuards } from '@nestjs/common';
+import {
+  Body,
+  ClassSerializerInterceptor,
+  Controller,
+  Get,
+  Post,
+  Req,
+  UseGuards,
+  UseInterceptors,
+} from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
 import {
   ApiBadRequestResponse,
   ApiBearerAuth,
   ApiCreatedResponse,
   ApiInternalServerErrorResponse,
+  ApiOkResponse,
   ApiTags,
   ApiUnauthorizedResponse,
 } from '@nestjs/swagger';
@@ -21,14 +31,25 @@ export class OrdersController {
   @ApiUnauthorizedResponse({ description: 'user not found' })
   @ApiCreatedResponse({ description: 'successful creation of an order' })
   @ApiBadRequestResponse({ description: 'validation error' })
-  @ApiInternalServerErrorResponse({ description: 'Internal server error' })
+  @ApiInternalServerErrorResponse({ description: 'internal server error' })
   @ApiBearerAuth()
   @UseGuards(AuthGuard('jwt'))
+  @UseInterceptors(ClassSerializerInterceptor)
   @Post()
   public async createOrder(
     @Body() createOrderDto: CreateOrderDto,
     @Req() { user }: { user: User },
   ): Promise<Order[]> {
     return this.ordersService.createOrder(createOrderDto, user);
+  }
+
+  @ApiOkResponse({ description: 'returns list of activities' })
+  @ApiInternalServerErrorResponse({ description: 'internal server error' })
+  @ApiBearerAuth()
+  @UseGuards(AuthGuard('jwt'))
+  @UseInterceptors(ClassSerializerInterceptor)
+  @Get()
+  public async getAllOrders(@Req() { user }: { user: User }): Promise<Order[]> {
+    return this.ordersService.getAllOrders(user);
   }
 }

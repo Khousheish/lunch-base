@@ -1,10 +1,11 @@
-import { Transform } from 'class-transformer';
-import moment from 'moment';
+import { Exclude } from 'class-transformer';
+import { User } from 'src/modules/users/shared/entities/user.entity';
 import {
   BaseEntity,
   Column,
   CreateDateColumn,
   Entity,
+  ManyToOne,
   PrimaryGeneratedColumn,
 } from 'typeorm';
 
@@ -21,4 +22,11 @@ export class Order extends BaseEntity {
 
   @Column()
   received: boolean;
+
+  @Exclude()
+  @ManyToOne((type) => User, (user) => user.orders, { eager: true })
+  user: User;
+
+  @Column()
+  userId: number;
 }
