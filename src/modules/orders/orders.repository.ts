@@ -14,7 +14,6 @@ export class OrdersRepository extends Repository<Order> {
     validDates.forEach((date: Date) => {
       let order: Order = new Order();
       order.validDate = date;
-      order.received = false;
       order.userId = userId;
       orders.push(order);
     });

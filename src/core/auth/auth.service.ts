@@ -34,7 +34,6 @@ export class AuthService {
 
       return { accessToken };
     } catch (error) {
-      console.log(error);
       if (error.constraint === ErrorConstraint.emailError) {
         throw new ConflictException({
           error: await this.i18n.translate('en.ERRORS.AUTH.EMAIL_EXISTS', {

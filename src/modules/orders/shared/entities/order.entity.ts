@@ -20,7 +20,7 @@ export class Order extends BaseEntity {
   @Column({ type: 'date' })
   validDate: Date;
 
-  @Column()
+  @Column({ default: false })
   received: boolean;
 
   @Exclude()
